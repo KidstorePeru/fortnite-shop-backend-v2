@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const shopContainer = document.getElementById("shop-container");
 
     try {
-        const response = await fetch("/api/shop");
+        const response = await fetch("https://fortnite-shop-backend-production.up.railway.app/api/shop");
         const shopData = await response.json();
 
         if (!shopData || Object.keys(shopData).length === 0) {
