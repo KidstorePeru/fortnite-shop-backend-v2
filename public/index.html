@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Fortnite</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Tienda de Fortnite</h1>
+        <div class="important-note">
+
+            <div class="top-container">
+                <div class="important-note">
+                    <h2>⚠️ NOTA IMPORTANTE ⚠️</h2>
+                    <p>Para poder enviarte regalos es necesario que seamos amigos por <b>2 días</b>. ⏳</p>
+                    <p><strong>CUENTAS DISPONIBLES:</strong></p>
+                    <ul class="account-list">
+                        <li>KidStore0001</li>
+                        <li>KidStore0002</li>
+                        <li>KidStore0003</li>
+                        <li>KidStore0004</li>
+                        <li>KidStore0005</li>
+                        <li>KidStore0006</li>
+                        <li>KidStore0007</li>
+                        <li>KidStore0008</li>
+                        <li>KidStore0009</li>
+                        <li>KidStore0010</li>
+                    </ul>
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="🔍 Buscar un objeto..." />
+                        <button id="search-button">Buscar</button>
+                    </div>
+                </div>
+            </div>
+    </header>
+    <main id="shop-container">
+        <!-- Los productos se generarán dinámicamente aquí -->
+    </main>
+
+    <!-- Botón "VER TODO" para "Pistas de improvisación" -->
+    <div id="verTodoContainer" style="display: none; text-align: center; margin-top: 20px;">
+        <button id="verTodoPistas" class="ver-todo-btn">VER TODO</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const verTodoBtn = document.getElementById("verTodoPistas");
+            const pistasSection = document.querySelector(".pistas-container");
+            const pistasOcultas = document.querySelectorAll(".pistas-item.hidden");
+
+            // Mostrar el botón solo si hay elementos ocultos
+            if (pistasOcultas.length > 0) {
+                document.getElementById("verTodoContainer").style.display = "block";
+            }
+
+            verTodoBtn.addEventListener("click", function() {
+                pistasOcultas.forEach(item => item.classList.remove("hidden")); // Mostrar los ocultos
+                verTodoBtn.style.display = "none"; // Ocultar el botón después de hacer clic
+            });
+        });
+    </script>
+</body>
+</html>

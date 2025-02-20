@@ -1,0 +1,385 @@
+/* 🔠 Importar la fuente de Fortnite */
+@font-face {
+    font-family: 'Burbank Big Condensed';
+    src: url('fonts/burbankbigcondensed_black.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Burbank Big Condensed';
+    src: url('fonts/burbankbigcondensed_bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 🎨 Estilo general */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 📢 Título principal "Tienda de Fortnite" */
+h1 {
+    font-family: 'Burbank Big Condensed', Arial, sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* 📌 Títulos de las categorías más grandes */
+h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 30px 0 10px;
+}
+
+/* 📦 Contenedor de la tienda */
+#shop-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 🔹 Sección de cada categoría */
+.section {
+    width: 100%;
+    margin-bottom: 40px;
+    text-align: center; /* Centrar títulos */
+}
+
+/* 🎭 Contenedor de los ítems */
+.items-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+/* 🌟 SOLO LOS "LOTES" OCUPAN UNA FILA COMPLETA */
+.lote-item {
+    background: #2a2a2a;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* 📌 Imagen de los "Lotes" ahora se ve completamente dentro del recuadro */
+.lote-item img {
+    width: 100%;
+    max-width: 1350px;
+    height: 610px;
+    object-fit: contain; /* ⬅️ Asegura que la imagen se vea completa */
+    object-position: center;
+    border-radius: 8px;
+}
+
+/* 🏷️ Lote - Nombre del producto más grande y en negrita */
+.lote-item h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* 💰 Lote - Precio en negrita y más grande */
+.lote-item p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFD700;
+    margin: 5px 0;
+}
+
+/* 🎭 Contenedor de los objetos normales en filas de 6 */
+.regular-items-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1400px;
+}
+
+/* 🔥 Estilo de cada producto */
+.item {
+    background: #2a2a2a;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 255px; /* Ajustado para que encaje bien */
+    box-sizing: border-box;
+}
+
+.item:hover {
+    transform: scale(1.05);
+}
+
+/* 🎨 Imagen de los productos normales */
+.item img {
+    width: 255px;
+    height: 240px;
+    object-fit: contain;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+/* 🏷️ Nombre del producto más grande y en negrita */
+.item h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* 💰 Precio en negrita y más grande */
+.item p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFD700;
+    margin: 5px 0;
+}
+
+/* 📦 Contenedor superior que agrupa la nota y el buscador */
+.top-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1440px;
+    height: 230px;
+    background: linear-gradient(135deg, #ffcc00, #ff8800);
+    color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(255, 136, 0, 0.5);
+}
+
+/* 📢 Caja de "Nota Importante" (ahora centrada) */
+.important-note {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+/* ⚠️ Estilo de "NOTA IMPORTANTE" */
+.important-note h2 {
+    font-family: 'Burbank Big Condensed', Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* 📌 Texto de la Nota */
+.important-note p {
+    font-family: 'Burbank Big Condensed', Arial, sans-serif;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* 📋 Lista de cuentas */
+.account-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* 🔹 Estilo de cada cuenta */
+.account-list li {
+    font-family: 'Burbank Big Condensed', Arial, sans-serif;
+    background: #222;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+/* 🎯 Efecto hover en las cuentas */
+.account-list li:hover {
+    background: #ff5500;
+    cursor: pointer;
+}
+
+/* 🔍 Contenedor del buscador (ahora centrado y debajo de la lista) */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin-top: -5px;
+    gap: 10px;
+}
+
+/* 📝 Caja de entrada de texto */
+#search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 2px solid #ffcc00;
+    outline: none;
+}
+
+/* 🔘 Botón de búsqueda */
+#search-button {
+    background: #ff8800;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+/* 🔘 Efecto hover en el botón */
+#search-button:hover {
+    background: #ff5500;
+}
+
+/* 📱 Responsivo para pantallas más pequeñas */
+@media (max-width: 1440px) {
+    .top-container {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        text-align: center;
+        padding: 30px;
+    }
+
+    .important-note, .search-container {
+        max-width: 100%;
+    }
+
+    .search-container {
+        justify-content: center;
+        margin-top: 15px;
+    }
+}
+
+/* 🔗 Botones de compra */
+.buttons {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+/* 🔘 Botón con colores */
+.btn {
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.whatsapp { background: #25D366; color: white; }
+.messenger { background: #0084FF; color: white; }
+.instagram { background: #C13584; color: white; }
+.discord { background: #7289DA; color: white; }
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+/* 🔹 "Pistas de improvisación" con 3 filas visibles y un botón "VER TODO" */
+.pistas-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.pistas-item {
+    display: flex;
+}
+
+/* 🎭 Ocultar elementos extra en "Pistas de improvisación" */
+.pistas-item.hidden {
+    display: none;
+}
+
+/* 🎭 Botón "VER TODO" */
+.ver-todo-btn {
+    background: #FFD700;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.ver-todo-btn:hover {
+    background: #FFC107;
+}
+
+/* 📱 RESPONSIVE DESIGN */
+@media (max-width: 1400px) {
+    .regular-items-container,
+    .pistas-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 1200px) {
+    .regular-items-container,
+    .pistas-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .regular-items-container,
+    .pistas-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .regular-items-container,
+    .pistas-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
+    .regular-items-container,
+    .pistas-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
