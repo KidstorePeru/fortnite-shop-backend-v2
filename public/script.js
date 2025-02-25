@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const shopContainer = document.getElementById("shop-container");
 
     try {
-        const response = await fetch("https://fortnite-shop-backend-production.up.railway.app/api/shop");
+        const response = await fetch("/api/shop");
         const shopData = await response.json();
 
         if (!shopData || Object.keys(shopData).length === 0) {
@@ -10,25 +10,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        // Secciones en orden y "Pistas de improvisación" al final
-        const sectionOrder = [
-            "Messi",
-            "The Weeknd",
-            "Hatsune Miku",
-            "DC",
-            "Avatar",
-            "Originales magistrales",
-            "Tienda de envoltorios",
-            "Con 'F' de Fortnite",
-            "Marvel",
-            "Zapatillas a tutiplén",
-            "Dúos",
-            "Lamborghini Huracán STO",
-            "Endo",
-            "Ruedas y potenciadores",
-            "Equípate para el Festival",
-            "Pistas de improvisación" // Última categoría
-        ];
+        // 📌 Se obtiene la lista dinámica de todas las secciones de la API
+        const sectionOrder = shopData.map(section => section.sectionName);
 
         sectionOrder.forEach(sectionName => {
             const sectionData = shopData.find(section => section.sectionName === sectionName);
@@ -54,12 +37,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <h3>${item.name}</h3>
                     <p>${item.pricePaVos} paVos - ${item.priceSoles} Soles</p>
                     <div class="buttons">
-                        <div class="buttons">
-                            <a href="https://wa.me/51917932301?text=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${item.name}, vale ${item.pricePaVos} pavos y su precio es de ${item.priceSoles}.`)}" class="btn whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-                            <a href="https://www.facebook.com/messages/t/564582056931570?message=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${item.name}, vale ${item.pricePaVos} pavos y su precio es de ${item.priceSoles}.`)}" class="btn messenger" target="_blank" rel="noopener noreferrer">Messenger</a>
-                            <a href="https://www.instagram.com/direct/t/107896800607394?text=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${item.name}, vale ${item.pricePaVos} pavos y su precio es de ${item.priceSoles}.`)}" class="btn instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
-                            <a href="https://discord.gg/kidstore" class="btn discord" target="_blank" rel="noopener noreferrer">Discord</a>
-                        </div>
+                        <a href="https://wa.me/51917932301?text=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${item.name}, vale ${item.pricePaVos} pavos y su precio es de ${item.priceSoles}.`)}" class="btn whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                        <a href="https://www.facebook.com/messages/t/564582056931570?message=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${item.name}, vale ${item.pricePaVos} pavos y su precio es de ${item.priceSoles}.`)}" class="btn messenger" target="_blank" rel="noopener noreferrer">Messenger</a>
+                        <a href="https://www.instagram.com/direct/t/107896800607394?text=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${item.name}, vale ${item.pricePaVos} pavos y su precio es de ${item.priceSoles}.`)}" class="btn instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
+                        <a href="https://discord.gg/kidstore" class="btn discord" target="_blank" rel="noopener noreferrer">Discord</a>
                     </div>
                 `;
                 itemsContainer.appendChild(loteDiv);
@@ -77,7 +58,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                     const itemDiv = document.createElement("div");
                     itemDiv.classList.add("item", "pistas-item");
 
-                    // Ocultar los productos extra (mostrar solo 3 filas de 4 columnas = 12 productos)
                     if (index >= maxVisibleItems) {
                         itemDiv.classList.add("hidden");
                         hiddenItems.push(itemDiv);
@@ -100,7 +80,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 itemsContainer.appendChild(pistasContainer);
 
-                // Mostrar el botón "VER TODO" solo si hay más de 12 productos
                 if (hiddenItems.length > 0) {
                     const showMoreBtn = document.createElement("button");
                     showMoreBtn.textContent = "VER TODO";
@@ -108,13 +87,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     showMoreBtn.addEventListener("click", () => {
                         hiddenItems.forEach(item => item.classList.remove("hidden"));
-                        showMoreBtn.style.display = "none"; // Ocultar el botón después de expandir
+                        showMoreBtn.style.display = "none";
                     });
 
                     itemsContainer.appendChild(showMoreBtn);
                 }
             } else {
-                // Mostrar los objetos normales en filas de 4 (para las demás categorías)
                 const regularItemsContainer = document.createElement("div");
                 regularItemsContainer.classList.add("regular-items-container");
 
@@ -141,95 +119,185 @@ document.addEventListener("DOMContentLoaded", async () => {
             sectionDiv.appendChild(itemsContainer);
             shopContainer.appendChild(sectionDiv);
         });
-
+        
     } catch (error) {
         shopContainer.innerHTML = "<p>Error al cargar la tienda.</p>";
         console.error("Error fetching shop data:", error);
     }
 });
 
-// Función para actualizar la tienda automáticamente sin recargar la página
+// 🔄 **Función para actualizar la tienda automáticamente**
 async function fetchAndUpdateShop() {
     try {
         const response = await fetch("/api/shop");
         const shopData = await response.json();
 
-        if (!shopData || Object.keys(shopData).length === 0) return;
+        console.log("🔄 Tienda actualizada automáticamente:", shopData);
 
-        const shopContainer = document.getElementById("shop-container");
-        shopContainer.innerHTML = ""; // Limpiar la tienda antes de actualizar
+        if (!shopData || shopData.length === 0) return;
 
-        // Llamar a la función que genera los productos nuevamente
-        sectionOrder.forEach(sectionName => {
-            const sectionData = shopData.find(section => section.sectionName === sectionName);
-            if (sectionData) {
-                generateShopSection(sectionName, sectionData);
-            }
-        
-        });
-
-        console.log("🔄 Tienda actualizada automáticamente.");
+        renderShop(shopData);
     } catch (error) {
         console.error("❌ Error al actualizar la tienda:", error);
     }
 }
 
-// Hacer que la tienda se actualice cada 10 minutos sin recargar la página
-setInterval(fetchAndUpdateShop, 600000); // 600,000 ms = 10 minutos
+// ⏳ **Actualizar la tienda cada 10 minutos automáticamente**
+setInterval(fetchAndUpdateShop, 600000);
 
-// 🔍 Función para filtrar productos según la búsqueda
-document.getElementById("search-input").addEventListener("input", function () {
-    let searchQuery = this.value.toLowerCase();
-    let items = document.querySelectorAll(".item");
-    let lotes = document.querySelectorAll(".lote-item");
-    let sections = document.querySelectorAll(".section");
-    let resultsFound = false;
+// 📌 **Agregar botones de compra a los Pases**
+document.querySelectorAll(".pase-item").forEach(pase => {
+    const paseName = pase.querySelector("p").textContent;
+    const priceData = {
+        "Club Fortnite": { price: "", oldPrice: "" },
+        "Pase de Batalla": { price: "", pavos: "" },
+        "Pase de Orígenes": { price: "", pavos: "" },
+        "Pase de LEGO": { price: "", pavos: "" },
+        "Pase Musical": { price: "", pavos: "" }
+    };
 
-    // Filtrar productos normales
-    items.forEach(item => {
-        let itemName = item.querySelector("h3").textContent.toLowerCase();
-        if (itemName.includes(searchQuery)) {
-            item.style.display = "flex";
-            resultsFound = true;
-        } else {
-            item.style.display = "none";
-        }
-    });
+    if (priceData[paseName]) {
+        const { price, pavos, oldPrice } = priceData[paseName];
+        let priceHTML = `<p>${pavos ? `${pavos} - ` : ""}<span class="old-price">${oldPrice || ""}</span> ${price}</p>`;
 
-    // Filtrar los "Lotes"
-    lotes.forEach(lote => {
-        let loteName = lote.querySelector("h3").textContent.toLowerCase();
-        if (loteName.includes(searchQuery)) {
-            lote.style.display = "flex";
-            resultsFound = true;
-        } else {
-            lote.style.display = "none";
-        }
-    });
-
-    // Ocultar categorías vacías
-    sections.forEach(section => {
-        let visibleItems = section.querySelectorAll(".item[style='display: flex;'], .lote-item[style='display: flex;']");
-        section.style.display = visibleItems.length > 0 ? "block" : "none";
-    });
-
-    // Mensaje cuando no hay resultados
-    let noResultsMessage = document.getElementById("no-results");
-    if (!resultsFound) {
-        if (!noResultsMessage) {
-            noResultsMessage = document.createElement("p");
-            noResultsMessage.id = "no-results";
-            noResultsMessage.textContent = "⚠️ No se encontraron resultados.";
-            document.getElementById("shop-container").appendChild(noResultsMessage);
-        }
-    } else if (noResultsMessage) {
-        noResultsMessage.remove();
+        pase.innerHTML += `
+            ${priceHTML}
+            <div class="buttons">
+                <a href="https://wa.me/51917932301?text=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${paseName}, cuesta ${price}.`)}" class="btn whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a href="https://www.facebook.com/messages/t/564582056931570?message=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${paseName}, cuesta ${price}.`)}" class="btn messenger" target="_blank" rel="noopener noreferrer">Messenger</a>
+                <a href="https://www.instagram.com/direct/t/107896800607394?text=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${paseName}, cuesta ${price}.`)}" class="btn instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://discord.gg/kidstore" class="btn discord" target="_blank" rel="noopener noreferrer">Discord</a>
+            </div>
+        `;
     }
 });
 
-// 📌 Botón para ejecutar la búsqueda manualmente
-document.getElementById("search-button").addEventListener("click", function () {
-    let searchInput = document.getElementById("search-input");
-    searchInput.focus(); // Hace foco en el campo de búsqueda
-    searchInput.dispatchEvent(new Event("input")); // Dispara la búsqueda
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        // 🛍️ Obtener la tienda desde la API
+        const response = await fetch("/api/shop");
+        const shopData = await response.json();
+
+        if (!shopData || shopData.length === 0) return;
+
+// 🎨 Mapa de colores para cada categoría (se asignará automáticamente)
+const coloresCategorias = {};
+const coloresPredefinidos = [
+    "#8B0000", // Rojo oscuro
+    "#1B4F72", // Azul profundo
+    "#D4AF37", // Amarillo dorado (Oro)
+    "#004225", // Verde oscuro
+    "#C76A10", // Naranja oscuro
+    "#4B0082", // Morado índigo
+    "#6D1B7B", // Rosa oscuro
+    "#5D4037", // Marrón café oscuro
+    "#121212", // Negro absoluto
+    "#2C2F33", // Gris oscuro
+    "#008B8B", // Cian oscuro
+    "#8B008B", // Magenta profundo
+    "#556B2F", // Lima oliva oscuro
+    "#006D5B", // Turquesa profundo
+    "#51425F", // Lavanda oscuro
+    "#B76E79", // Salmón oscuro
+    "#C4A484", // Beige tostado
+    "#D4AF37", // Oro metálico
+    "#AFAFAF", // Plata oscura
+    "#8C7853", // Bronce oscuro
+    "#960018", // Carmesí oscuro
+    "#3F2A56", // Índigo oscuro
+    "#551A8B", // Violeta oscuro
+    "#3D9970", // Oliva profundo
+    "#9B3B2E", // Coral oscuro
+    "#B8860B", // Mostaza quemado
+    "#5B2333", // Borgoña oscuro
+    "#5F9EA0", // Aguamarina oscura
+    "#006400", // Esmeralda oscura
+    "#9B111E", // Rubí oscuro
+    "#0C2340", // Zafiro oscuro
+    "#B76E00", // Ámbar oscuro
+    "#884C2F", // Terracota oscuro
+    "#C7B299", // Perla apagado
+    "#ECE5B6", // Marfil tostado
+    "#8A865D", // Caqui oscuro
+    "#A2006D", // Fucsia profundo
+    "#960018", // Carmín oscuro
+    "#8B5A2B",  // Ocre marrón
+];
+
+        let coloresUsados = new Set();
+
+        // Función para obtener un color único que garantice visibilidad
+        function obtenerColorUnico() {
+            for (let color of coloresPredefinidos) {
+                if (!coloresUsados.has(color)) {
+                    coloresUsados.add(color);
+                    return color;
+                }
+            }
+            return generarColorSeguro(); // Si se acaban los predefinidos, generar un color seguro
+        }
+
+        // Aplicar colores de fondo a cada categoría
+        shopData.forEach((section) => {
+            let sectionName = section.sectionName.trim();
+            let sectionDiv = [...document.querySelectorAll(".section")].find(sec => sec.querySelector("h2")?.textContent.trim() === sectionName);
+
+            if (!sectionDiv) return; // Si no se encuentra la sección en el DOM, omitir
+            if (sectionName.toLowerCase() === "pases") return; // Excluir la categoría "Pases"
+
+            // Asignar un color único a cada categoría
+            if (!coloresCategorias[sectionName]) {
+                coloresCategorias[sectionName] = obtenerColorUnico();
+            }
+
+            let colorFondo = coloresCategorias[sectionName];
+
+            // Aplicar estilos a cada objeto dentro de la sección con efecto brillante
+            sectionDiv.querySelectorAll(".item, .lote-item").forEach(item => {
+                item.style.backgroundColor = colorFondo;
+                item.style.borderRadius = "10px";
+                item.style.padding = "15px";
+                item.style.color = "#ffffff"; // Asegurar legibilidad del texto
+                item.style.boxShadow = `0px 0px 15px ${colorFondo}`; // Efecto brillante
+                item.style.transition = "all 0.3s ease-in-out"; // Suavizar la transición
+
+                // Aplicar color específico a los precios en pavos y soles
+                let priceElements = item.querySelectorAll("p");
+                priceElements.forEach(price => {
+                    price.style.color = "#1FEDF0"; // Mantener color para costos en pavos y precio
+                });
+            });
+        });
+
+    } catch (error) {
+        console.error("❌ Error al aplicar colores a los objetos:", error);
+    }
+
+    // 🎨 Función para generar colores con buen contraste
+    function generarColorSeguro() {
+        let color;
+        do {
+            color = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+        } while (!esColorLegible(color));
+        coloresUsados.add(color);
+        return color;
+    }
+
+    // 📌 Función para verificar que el color tenga buen contraste con el texto blanco y el cyan
+    function esColorLegible(hexColor) {
+        const rgb = hexToRgb(hexColor);
+        const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000; // Calcular luminosidad
+        return brightness < 170; // Solo permitir colores oscuros para buen contraste
+    }
+
+    // 🔄 Convertir color HEX a RGB
+    function hexToRgb(hex) {
+        let bigint = parseInt(hex.substring(1), 16);
+        return {
+            r: (bigint >> 16) & 255,
+            g: (bigint >> 8) & 255,
+            b: bigint & 255
+        };
+    }
 });
+

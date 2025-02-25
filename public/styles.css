@@ -1,44 +1,43 @@
-/* 🔠 Importar la fuente de Fortnite */
-@font-face {
-    font-family: 'Burbank Big Condensed';
-    src: url('fonts/burbankbigcondensed_black.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Burbank Big Condensed';
-    src: url('fonts/burbankbigcondensed_bold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* 🎨 Estilo general */
+/* 🎨 Fondo inicial */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1e1e1e;
+    font-family: 'BurbankBigCondensed', sans-serif;
+    background: url("135545-pintura_abstracta_negra_y_morada-1920x1080.jpg") center/cover no-repeat fixed;
+    background-color: #1e1e1e; /* Color de respaldo si la imagen no carga */
     color: white;
     text-align: center;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
+    transition: background 1s ease-in-out; /* Suaviza el cambio de fondo */
 }
 
-/* 📢 Título principal "Tienda de Fortnite" */
+/* 📢 Título principal "Tienda de Fortnite" más grande */
 h1 {
-    font-family: 'Burbank Big Condensed', Arial, sans-serif;
-    font-size: 50px;
+    font-size: 120px;
     font-weight: bold;
     margin-bottom: 20px;
+    margin-top: 0px; /* Ajusta este valor */
     text-transform: uppercase;
 }
 
 /* 📌 Títulos de las categorías más grandes */
 h2 {
-    font-size: 32px;
+    font-size: 62px;
     font-weight: bold;
     margin: 30px 0 10px;
+}
+
+/* 📌 KIDSTORE */
+h5 {
+    font-size: 150px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 50px; /* Ajusta este valor */
+    text-transform: uppercase;
+    color: #FBD500;
+
 }
 
 /* 📦 Contenedor de la tienda */
@@ -67,7 +66,7 @@ h2 {
 
 /* 🌟 SOLO LOS "LOTES" OCUPAN UNA FILA COMPLETA */
 .lote-item {
-    background: #2a2a2a;
+    background: #2A2A2A;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
@@ -82,34 +81,35 @@ h2 {
 /* 📌 Imagen de los "Lotes" ahora se ve completamente dentro del recuadro */
 .lote-item img {
     width: 100%;
-    max-width: 1350px;
-    height: 610px;
-    object-fit: contain; /* ⬅️ Asegura que la imagen se vea completa */
-    object-position: center;
+    max-width: 1000px;
+    height: 500px;
+    object-fit: cover; /* La imagen llenará el recuadro sin deformarse */
+    object-position: center top; /* Ajusta qué parte de la imagen se muestra */
     border-radius: 8px;
 }
 
 /* 🏷️ Lote - Nombre del producto más grande y en negrita */
 .lote-item h3 {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
     margin-top: 10px;
 }
 
 /* 💰 Lote - Precio en negrita y más grande */
 .lote-item p {
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
-    color: #FFD700;
+    color: #ffffff;
     margin: 5px 0;
+    margin-top: -25px;
 }
 
 /* 🎭 Contenedor de los objetos normales en filas de 6 */
 .regular-items-container {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra los productos cuando la fila está incompleta */
     gap: 20px;
-    justify-content: center;
     width: 100%;
     max-width: 1400px;
 }
@@ -135,26 +135,27 @@ h2 {
 
 /* 🎨 Imagen de los productos normales */
 .item img {
-    width: 255px;
-    height: 240px;
-    object-fit: contain;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    width: 100%; /* Ajusta el tamaño al contenedor */
+    height: 180px; /* Mantén una altura fija */
+    object-fit: contain; /* Asegura que la imagen se vea completa */
+    display: block; /* Evita espacios adicionales */
+    margin: auto; /* Centra horizontalmente */
 }
 
 /* 🏷️ Nombre del producto más grande y en negrita */
 .item h3 {
-    font-size: 20px;
+    font-size: 27px;
     font-weight: bold;
     margin-top: 10px;
 }
 
 /* 💰 Precio en negrita y más grande */
 .item p {
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
-    color: #FFD700;
+    color: #ffffff;
     margin: 5px 0;
+    margin-top: -25px;
 }
 
 /* 📦 Contenedor superior que agrupa la nota y el buscador */
@@ -178,22 +179,21 @@ h2 {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    width: 100%;
+    width: 100%;    
 }
 
-/* ⚠️ Estilo de "NOTA IMPORTANTE" */
+/* ⚠️ Estilo del título */
 .important-note h2 {
-    font-family: 'Burbank Big Condensed', Arial, sans-serif;
-    font-size: 24px;
+    font-size: 48px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 /* 📌 Texto de la Nota */
 .important-note p {
-    font-family: 'Burbank Big Condensed', Arial, sans-serif;
-    font-size: 16px;
+    font-size: 32px;
     margin-bottom: 10px;
+    margin-top: -10px; /* Ajusta este valor */
 }
 
 /* 📋 Lista de cuentas */
@@ -208,12 +208,11 @@ h2 {
 
 /* 🔹 Estilo de cada cuenta */
 .account-list li {
-    font-family: 'Burbank Big Condensed', Arial, sans-serif;
     background: #222;
     color: #fff;
     padding: 6px 10px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 28px;
     font-weight: bold;
     transition: background 0.3s ease-in-out;
 }
@@ -222,40 +221,6 @@ h2 {
 .account-list li:hover {
     background: #ff5500;
     cursor: pointer;
-}
-
-/* 🔍 Contenedor del buscador (ahora centrado y debajo de la lista) */
-.search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
-    margin-top: -5px;
-    gap: 10px;
-}
-
-/* 📝 Caja de entrada de texto */
-#search-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 2px solid #ffcc00;
-    outline: none;
-}
-
-/* 🔘 Botón de búsqueda */
-#search-button {
-    background: #ff8800;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
 }
 
 /* 🔘 Efecto hover en el botón */
@@ -271,15 +236,6 @@ h2 {
         flex-direction: column;
         text-align: center;
         padding: 30px;
-    }
-
-    .important-note, .search-container {
-        max-width: 100%;
-    }
-
-    .search-container {
-        justify-content: center;
-        margin-top: 15px;
     }
 }
 
@@ -298,15 +254,15 @@ h2 {
     text-decoration: none;
     padding: 8px 12px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
     transition: background 0.3s ease;
 }
 
-.whatsapp { background: #25D366; color: white; }
-.messenger { background: #0084FF; color: white; }
-.instagram { background: #C13584; color: white; }
-.discord { background: #7289DA; color: white; }
+.whatsapp { background: #0DC143; color: white; }
+.messenger { background: #0866FF; color: white; }
+.instagram { background: #FD4B93; color: white; }
+.discord { background: #4C5AF1; color: white; }
 
 .btn:hover {
     opacity: 0.8;
@@ -382,4 +338,93 @@ h2 {
     .pistas-container {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+@font-face {
+    font-family: 'BurbankBigCondensed';
+    src: url('./fonts/BurbankBigCondensed-Black.woff2') format('woff2'),
+         url('./fonts/BurbankBigCondensed-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BurbankBigCondensed';
+    src: url('./fonts/BurbankBigCondensed-Bold.woff2') format('woff2'),
+         url('./fonts/BurbankBigCondensed-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+#pases {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contenedor-pases {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+#pases {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contenedor-pases {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.pase-item {
+    background-color: rgba(255, 136, 0, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    width: 300px; /* Ajusta según necesites */
+    text-align: center;
+}
+
+.pase-item img {
+    width: 100%;
+    max-width: 250px; /* Ajusta el tamaño de las imágenes */
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Precio anterior (tachado) */
+.pase-item p.precio-anterior {
+    color: red; /* Cambia este color según tu preferencia */
+    font-size: 22px;
+    margin-top: -25px;
+}
+
+/* Precio actual en soles */
+.pase-item p.precio-actual {
+    color: #ffffff; /* Cambia este color según tu preferencia */
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: -15px;
+}
+
+/* Nombre del pase */
+.pase-item p.nombre-pase {
+    color: rgb(255, 255, 255); /* Cambia este color según tu preferencia */
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Precio en paVos */
+.pase-item p.precio-pavos {
+    color: #ffffff; /* Cambia este color según tu preferencia */
+    font-size: 25px;
+    margin-top: -25px;
+}
+
+* {
+    color: white !important;
 }
