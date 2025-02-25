@@ -145,27 +145,33 @@ async function fetchAndUpdateShop() {
 // ⏳ **Actualizar la tienda cada 10 minutos automáticamente**
 setInterval(fetchAndUpdateShop, 600000);
 
-// 📌 **Agregar botones de compra a los Pases**
+// 📌 **Agregar botones de compra a los Pases sin mostrar el precio en la tarjeta**
 document.querySelectorAll(".pase-item").forEach(pase => {
     const paseName = pase.querySelector("p").textContent;
     const priceData = {
-        "Club Fortnite": { price: "", oldPrice: "" },
-        "Pase de Batalla": { price: "", pavos: "" },
-        "Pase de Orígenes": { price: "", pavos: "" },
-        "Pase de LEGO": { price: "", pavos: "" },
-        "Pase Musical": { price: "", pavos: "" }
+        "Club Fortnite": { price: "20.00", oldPrice: "39.00" },
+        "Pase de Batalla": { price: "25.00" },
+        "Pase de Orígenes": { price: "25.00" },
+        "Pase de LEGO": { price: "31.00" },
+        "Pase Musical": { price: "31.00" }
     };
 
     if (priceData[paseName]) {
         const { price, pavos, oldPrice } = priceData[paseName];
-        let priceHTML = `<p>${pavos ? `${pavos} - ` : ""}<span class="old-price">${oldPrice || ""}</span> ${price}</p>`;
 
+        // **Crear el mensaje con los datos de precios**
+        let mensaje = `¡Hola!, estoy interesado en comprar el ${paseName}.`;
+
+        if (pavos) mensaje += ` Cuesta ${pavos} pavos.`;
+        if (oldPrice) mensaje += ` Antes costaba S/${oldPrice}.`;
+        mensaje += ` Su precio actual es de S/${price}.`;
+
+        // **Generar los botones de compra sin mostrar los precios en la tarjeta**
         pase.innerHTML += `
-            ${priceHTML}
             <div class="buttons">
-                <a href="https://wa.me/51917932301?text=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${paseName}, cuesta ${price}.`)}" class="btn whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-                <a href="https://www.facebook.com/messages/t/564582056931570?message=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${paseName}, cuesta ${price}.`)}" class="btn messenger" target="_blank" rel="noopener noreferrer">Messenger</a>
-                <a href="https://www.instagram.com/direct/t/107896800607394?text=${encodeURIComponent(`¡Hola!, estoy interesado en comprar ${paseName}, cuesta ${price}.`)}" class="btn instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://wa.me/51917932301?text=${encodeURIComponent(mensaje)}" class="btn whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a href="https://www.facebook.com/messages/t/564582056931570?message=${encodeURIComponent(mensaje)}" class="btn messenger" target="_blank" rel="noopener noreferrer">Messenger</a>
+                <a href="https://www.instagram.com/direct/t/107896800607394?text=${encodeURIComponent(mensaje)}" class="btn instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
                 <a href="https://discord.gg/kidstore" class="btn discord" target="_blank" rel="noopener noreferrer">Discord</a>
             </div>
         `;
